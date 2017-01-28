@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8"/>
+<title>Produits</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+<body>
+	<div style="width:50%; margin:auto;">
+		<h3 class="jumbotron">Produits</h3>
+		<form th:action="@{index}" method="get" class="form-inline">
+			<div class="form-group">
+				<label for="mc">Mot cle:</label>
+				<input type="text" class="form-control" id="mc" name="mc" th:value="${mc}"/>
+			</div>
+			<input type="submit" class="btn btn-primary" value="Rechercher"/>
+		</form>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Designation</th>
+					<th>Prix</th>
+					<th>Quantite</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="p:${listproduit}">
+					<td th:text="${p.id}"></td>
+					<td th:text="${p.designation}"></td>
+					<td th:text="${p.prix}"></td>
+					<td th:text="${p.quantite}"></td>
+				</tr>
+			</tbody>
+		</table>
+		<ul class="pagination pagination-sm">
+			<li th:each="page, status:${pages}"><a th:href="@{index(page=${status.index},
+				size=${size}, mc=${mc})}" th:text="${status.index}"></a></li>
+		</ul>
+	</div>
+</body>
+</html>
